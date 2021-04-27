@@ -46,12 +46,16 @@
 #endif	// rtw_wifi_driver
 
 #ifdef CL_IPV6_PASS
-#ifdef __KERNEL__
-#include <linux/ipv6.h>
-#include <linux/icmpv6.h>
-#include <net/ndisc.h>
-#include <net/checksum.h>
-#endif
+	#ifdef __KERNEL__
+		#include <linux/ipv6.h>
+		#include <linux/icmpv6.h>
+		#include <net/ndisc.h>
+		#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 24))
+			#include <net/ip6_checksum.h>
+		#else
+			#include <net/checksum.h>
+		#endif
+	#endif
 #endif
 
 #ifdef CONFIG_BR_EXT
